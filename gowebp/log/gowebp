@@ -1,0 +1,27 @@
+goweb2020/03/07 12:29:49 Error 1049: Unknown database 'webdbd'
+goweb: 2020/03/07 12:31:45 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:12: Error 1049: Unknown database 'webdbd'
+goweb: 2020/03/07 14:26:47 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/models/user.go:22: Error 1146: Table 'webdb.users' doesn't exist
+goweb: 2020/03/07 14:26:58 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:14: Error 1146: Table 'webdb.users' doesn't exist
+goweb: 2020/03/07 14:46:07 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:11: goweb app start
+goweb: 2020/03/07 17:22:52 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/07 17:25:08 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/07 17:27:10 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/07 17:35:09 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/07 17:57:59 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/07 17:58:58 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/07 19:29:27 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/07 20:29:29 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/08 15:08:22 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/dbs/mysql.go:25: dial tcp 127.0.0.1:3306: connectex: No connection could be made because the target machine actively refused it.
+goweb: 2020/03/08 15:08:59 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/dbs/mysql.go:25: dial tcp 127.0.0.1:3306: connectex: No connection could be made because the target machine actively refused it.
+goweb: 2020/03/08 15:09:51 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/08 15:19:06 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/controls/control.go:50: Add user {4 kj 1qaz2wsx kj@156.com} success
+goweb: 2020/03/08 15:20:34 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/08 15:21:28 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/controls/control.go:52: Add user {5 aj 23wesd aj@156.com} success
+goweb: 2020/03/08 15:22:07 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/controls/control.go:52: Add user {6 bj 123qwezcc bj@145.com} success
+goweb: 2020/03/09 16:17:02 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/10 10:47:24 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/dbs/mysql.go:25: dial tcp 127.0.0.1:3306: connectex: No connection could be made because the target machine actively refused it.
+goweb: 2020/03/10 10:47:49 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/10 11:04:32 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/controls/control.go:60: invalid connection
+goweb: 2020/03/10 11:09:05 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/10 11:20:26 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
+goweb: 2020/03/10 11:26:09 c:/Users/medea/go/src/github.com/mdjdot/gowebplay/gowebp/main.go:10: goweb app start
