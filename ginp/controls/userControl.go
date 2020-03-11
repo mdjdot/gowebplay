@@ -3,9 +3,9 @@ package controls
 import (
 	"ginp/dbs"
 	"ginp/models"
+	"ginp/tables"
 	"ginp/utils"
 	"log"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -31,38 +31,26 @@ func Register(c *gin.Context) {
 		name = utils.RandName(10)
 	}
 
-	if models.IsTelephoneExist(dbs.GinDB, telephone) {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"code": http.StatusUnprocessableEntity,
-			"msg":  "用户已存在",
-		})
+	if tables.IsTelephoneExist(dbs.GinDB, telephone) {
+		models.ResponseClientError(c, nil, "用户已存在")
 		return
 	}
 
 	// 创建用户
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"code": http.StatusInternalServerError,
-			"msg":  "服务端异常，请稍后重试",
-		})
+		models.ResponseServerError(c, nil, "服务端异常，请稍后重试")
 		return
 	}
 
-	newUser := models.User{
+	userT := tables.User{
 		Name:      name,
 		Telephone: telephone,
 		Password:  string(hashedPassword),
 	}
-	dbs.GinDB.Create(&newUser)
+	dbs.GinDB.Create(&userT)
 
-	c.JSON(http.StatusOK, gin.H{
-		"code":      http.StatusOK,
-		"msg":       "注册成功",
-		"name":      name,
-		"telephone": telephone,
-		"password":  password,
-	})
+	models.ResponseSuccess(c, nil, "注册成功")
 }
 
 // Login 登录控制器
@@ -84,23 +72,17 @@ func Login(c *gin.Context) {
 	}
 
 	// 判断手机号是否存在
-	var user models.User
+	var user tables.User
 	dbs.GinDB.Model(&user).Where("telephone=?", telephone).First(&user)
 	if user.ID == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"code": http.StatusBadRequest,
-			"msg":  "手机号或密码不正确",
-		})
+		models.ResponseClientError(c, nil, "手机号或密码不正确")
 		return
 	}
 
 	// 判断密码是否正确
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"code": http.StatusBadRequest,
-			"msg":  "手机号或密码不正确",
-		})
+		models.ResponseClientError(c, nil, "手机号或密码不正确")
 		return
 	}
 
@@ -108,21 +90,12 @@ func Login(c *gin.Context) {
 	token, err := utils.ReleaseToken(user)
 	if err != nil {
 		log.Println(err)
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"code": http.StatusInternalServerError,
-			"msg":  "服务异常，稍后再试",
-		})
+		models.ResponseServerError(c, nil, "服务异常，稍后再试")
 		return
 	}
 
 	// 返回结果
-	c.JSON(http.StatusOK, gin.H{
-		"code": http.StatusOK,
-		"token": gin.H{
-			"token": token,
-		},
-		"msg": "登录成功",
-	})
+	models.ResponseSuccess(c, gin.H{"token": token}, "登录成功")
 }
 
 // Info 用户信息控制器
@@ -130,13 +103,15 @@ func Info(c *gin.Context) {
 	user, isExist := c.Get("user")
 	if !isExist {
 		log.Println("用户不存在")
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"code": http.StatusInternalServerError,
-			"msg":  "用户不存在",
-		})
+		models.ResponseClientError(c, nil, "用户不存在")
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"user": user,
-	})
+	userT, ok := user.(tables.User)
+	if !ok {
+		log.Println("用户信息格式有误")
+		models.ResponseServerError(c, nil, "服务异常，稍后重试")
+		return
+	}
+	userM := models.ToUser(userT)
+	models.ResponseSuccess(c, gin.H{"user": userM}, "")
 }

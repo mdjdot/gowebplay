@@ -1,10 +1,10 @@
 package dbs
 
 import (
-	"ginp/models"
+	"ginp/tables"
 
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/mysql" // 注册mysql
 )
 
 // GinDB mysql数据库
@@ -18,6 +18,6 @@ func init() {
 	}
 
 	// db.CreateTable(&User{})
-	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&tables.User{})
 	GinDB = db
 }

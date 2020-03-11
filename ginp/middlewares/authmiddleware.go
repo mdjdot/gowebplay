@@ -3,6 +3,7 @@ package middlewares
 import (
 	"ginp/dbs"
 	"ginp/models"
+	"ginp/tables"
 	"ginp/utils"
 	"net/http"
 	"strings"
@@ -18,34 +19,25 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		// 验证token 格式
 		if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"code": http.StatusUnauthorized,
-				"msg":  "权限不足",
-			})
+			models.Response(c, http.StatusUnauthorized, nil, "权限不足")
 			return
 		}
 
 		tokenString = tokenString[7:]
 		token, claims, err := utils.ParseToken(tokenString)
 		if err != nil || !token.Valid {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"code": http.StatusUnauthorized,
-				"msg":  "权限不足",
-			})
+			models.Response(c, http.StatusUnauthorized, nil, "权限不足")
 			c.Abort()
 			return
 		}
 		// 验证通过，获取claims中的userID
 		userID := claims.UserID
-		var user models.User
+		var user tables.User
 		dbs.GinDB.First(&user, userID)
 		// dbs.GinDB.Model(&User{}).First(&user, userID)
 
 		if userID == 0 {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"code": http.StatusUnauthorized,
-				"msg":  "权限不足",
-			})
+			models.Response(c, http.StatusUnauthorized, nil, "权限不足")
 			c.Abort()
 			return
 		}

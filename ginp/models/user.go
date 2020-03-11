@@ -1,21 +1,17 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import "ginp/tables"
 
-// User 定义用户类型
+// User 用户类型
 type User struct {
-	gorm.Model
-	Name      string `gorm:"type:varchar(20);notn ull"`
-	Telephone string `gorm:"type：varchar(11);not null unique"`
-	Password  string `gorm:"size:250;not null"`
+	Name      string `json:"name"`
+	Telephone string `json:"telephone"`
 }
 
-// IsTelephoneExist 判断用户手机号是否已存在
-func IsTelephoneExist(db *gorm.DB, telephone string) bool {
-	var user User
-	db.Where("telephone=?", telephone).First(&user)
-	if user.ID != 0 {
-		return true
+// ToUser tables.User 转换为 models.User
+func ToUser(user tables.User) User {
+	return User{
+		Name:      user.Name,
+		Telephone: user.Telephone,
 	}
-	return false
 }

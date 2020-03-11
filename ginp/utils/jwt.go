@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"ginp/models"
+	"ginp/tables"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -16,7 +16,7 @@ type Claims struct {
 }
 
 // ReleaseToken 发放token
-func ReleaseToken(user models.User) (string, error) {
+func ReleaseToken(user tables.User) (string, error) {
 	// expirtionTime := time.Now().Add(7 * 24 * time.Hour)
 	expirtionTime := time.Now().Add(30 * time.Second)
 	claims := &Claims{
