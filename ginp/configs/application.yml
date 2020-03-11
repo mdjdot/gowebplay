@@ -1,0 +1,10 @@
+server:
+  port: 1016
+datasource:
+  driverName: mysql
+  host: 127.0.0.1
+  port: 3306
+  database: gindb
+  username: dm
+  password: dmtest
+  charset: utf8
