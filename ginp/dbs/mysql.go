@@ -12,7 +12,7 @@ var GinDB *gorm.DB
 
 // InitDB 初始化数据库
 func init() {
-	db, err := gorm.Open("mysql", "dm:dmtest@tcp(127.0.0.1:3306)/gindb?charset=utf8&parseTime=true")
+	db, err := gorm.Open("mysql", "dm:dmtest@tcp(127.0.0.1:3306)/gindb?charset=utf8&parseTime=true&loc=Local")
 	if err != nil {
 		panic(err)
 	}
