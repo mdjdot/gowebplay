@@ -13,42 +13,42 @@ import (
 
 // Register 注册控制器
 func Register(c *gin.Context) {
-	name := c.PostForm("name")
-	telephone := c.PostForm("telephone")
-	password := c.PostForm("password")
+	// name := c.PostForm("name")
+	// telephone := c.PostForm("telephone")
+	// password := c.PostForm("password")
 
-	err := utils.CheckTelephone(c, telephone)
+	var requestUser tables.User
+	c.Bind(&requestUser)
+
+	err := utils.CheckTelephone(c, requestUser.Telephone)
 	if err != nil {
 		return
 	}
 
-	err = utils.CheckPassword(c, password)
+	err = utils.CheckPassword(c, requestUser.Password)
 	if err != nil {
 		return
 	}
 
-	if len(name) == 0 {
-		name = utils.RandName(10)
+	if len(requestUser.Name) == 0 {
+		requestUser.Name = utils.RandName(10)
 	}
 
-	if tables.IsTelephoneExist(dbs.GinDB, telephone) {
+	if tables.IsTelephoneExist(dbs.GinDB, requestUser.Telephone) {
 		models.ResponseClientError(c, nil, "用户已存在")
 		return
 	}
 
 	// 创建用户
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(requestUser.Password), bcrypt.DefaultCost)
 	if err != nil {
 		models.ResponseServerError(c, nil, "服务端异常，请稍后重试")
 		return
 	}
 
-	userT := tables.User{
-		Name:      name,
-		Telephone: telephone,
-		Password:  string(hashedPassword),
-	}
-	dbs.GinDB.Create(&userT)
+	requestUser.Password = string(hashedPassword)
+
+	dbs.GinDB.Create(&requestUser)
 
 	models.ResponseSuccess(c, nil, "注册成功")
 }
@@ -57,30 +57,34 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	// 获取参数
 	// telephone, _ := c.GetQuery("name") //c.PostForm("telephone")
-	telephone, _ := c.GetQuery("telephone") //c.PostForm("telephone")
-	password, _ := c.GetQuery("password")
+	// telephone, _ := c.GetQuery("telephone") //c.PostForm("telephone")
+	// password, _ := c.GetQuery("password")
+
+	var loginUser tables.User
+	c.BindQuery(&loginUser)
+	// c.Bind(&loginUser)
 
 	// 数据验证
-	err := utils.CheckTelephone(c, telephone)
+	err := utils.CheckTelephone(c, loginUser.Telephone)
 	if err != nil {
 		return
 	}
 
-	err = utils.CheckPassword(c, password)
+	err = utils.CheckPassword(c, loginUser.Password)
 	if err != nil {
 		return
 	}
 
 	// 判断手机号是否存在
 	var user tables.User
-	dbs.GinDB.Model(&user).Where("telephone=?", telephone).First(&user)
+	dbs.GinDB.Model(&user).Where("telephone=?", loginUser.Telephone).First(&user)
 	if user.ID == 0 {
 		models.ResponseClientError(c, nil, "手机号或密码不正确")
 		return
 	}
 
 	// 判断密码是否正确
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(loginUser.Password))
 	if err != nil {
 		models.ResponseClientError(c, nil, "手机号或密码不正确")
 		return

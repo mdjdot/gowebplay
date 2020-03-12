@@ -17,6 +17,7 @@ func main() {
 
 	r := gin.Default()
 	{
+		r.Use(middlewares.CROSSMiddleware())
 		r.POST("/api/auth/register", controls.Register)
 		r.GET("/api/auth/Login", controls.Login)
 		r.GET("/api/auth/Info", middlewares.AuthMiddleware(), controls.Info)

@@ -5,9 +5,9 @@ import "github.com/jinzhu/gorm"
 // User 定义用户类型
 type User struct {
 	gorm.Model
-	Name      string `gorm:"type:varchar(20);notn ull"`
-	Telephone string `gorm:"type：varchar(11);not null unique"`
-	Password  string `gorm:"size:250;not null"`
+	Name      string `gorm:"type:varchar(20);notn ull" form:"name"`
+	Telephone string `gorm:"type：varchar(11);not null unique" form:"telephone"`
+	Password  string `gorm:"size:250;not null" form:"password"`
 }
 
 // IsTelephoneExist 判断用户手机号是否已存在
