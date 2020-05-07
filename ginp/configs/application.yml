@@ -3,8 +3,8 @@ server:
 datasource:
   driverName: mysql
   host: 127.0.0.1
-  port: 3306
+  port: 1306
   database: gindb
-  username: dm
-  password: dmtest
+  username: root
+  password: roottest
   charset: utf8

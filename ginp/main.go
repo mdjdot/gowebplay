@@ -1,9 +1,9 @@
 package main
 
 import (
-	"ginp/controls"
 	"ginp/dbs"
 	"ginp/middlewares"
+	"ginp/routers"
 	"log"
 	"os"
 
@@ -16,12 +16,9 @@ func main() {
 	dbs.InitDB()
 
 	r := gin.Default()
-	{
-		r.Use(middlewares.CROSSMiddleware())
-		r.POST("/api/auth/register", controls.Register)
-		r.GET("/api/auth/Login", controls.Login)
-		r.GET("/api/auth/Info", middlewares.AuthMiddleware(), controls.Info)
-	}
+	r.Use(middlewares.CROSSMiddleware())
+	routers.InitRouters(r)
+
 	port := viper.GetString("server.port")
 
 	if port != "" {
