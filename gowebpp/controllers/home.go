@@ -18,12 +18,25 @@ import (
 func HandleHome(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		ckUser, err := r.Cookie("token")
-		if err != nil || sessions.Sessions[ckUser.Value] == nil {
+		if err != nil {
 			w.Header().Set("Location", "/login")
 			w.WriteHeader(http.StatusFound)
 			confs.Logger.Printf("请求没有cookie，转到登录页，错误：%v\n", err)
 			return
 		}
+		token, err := sessions.Get(ckUser.Value)
+		if err != nil || token == "" {
+			w.Header().Set("Location", "/login")
+			w.WriteHeader(http.StatusFound)
+			confs.Logger.Printf("请求没有cookie，转到登录页，错误：%v\n", err)
+			return
+		}
+		// if err != nil || sessions.Sessions[ckUser.Value] == nil {
+		// 	w.Header().Set("Location", "/login")
+		// 	w.WriteHeader(http.StatusFound)
+		// 	confs.Logger.Printf("请求没有cookie，转到登录页，错误：%v\n", err)
+		// 	return
+		// }
 		t, err := template.ParseFiles("./views/home.html")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)

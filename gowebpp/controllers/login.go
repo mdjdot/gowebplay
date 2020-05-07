@@ -6,7 +6,6 @@ import (
 	"gowebpp/utils"
 	"html/template"
 	"net/http"
-	"time"
 )
 
 // HandleLogin 登录控制器
@@ -33,7 +32,12 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		token := utils.MD5(user.Name)
-		sessions.Sessions[token] = time.NewTimer(20 * time.Second)
+		// sessions.Sessions[token] = time.NewTimer(20 * time.Second)
+		err := sessions.Add(token, 20)
+		if err != nil {
+			utils.ProcessClientError(w, r)
+			return
+		}
 		http.SetCookie(w, &http.Cookie{Name: "token", Value: token})
 		w.Header().Add("Location", "/")
 		w.WriteHeader(http.StatusFound)

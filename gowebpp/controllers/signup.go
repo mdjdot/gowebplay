@@ -6,7 +6,6 @@ import (
 	"gowebpp/utils"
 	"html/template"
 	"net/http"
-	"time"
 )
 
 // HandleSignup 注册控制器
@@ -34,7 +33,12 @@ func HandleSignup(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		token := utils.MD5(user.Name)
-		sessions.Sessions[token] = time.NewTimer(20 * time.Second)
+		// sessions.Sessions[token] = time.NewTimer(20 * time.Second)
+		err = sessions.Add(token, 20)
+		if err != nil {
+			utils.ProcessServerError(w, err)
+			return
+		}
 		http.SetCookie(w, &http.Cookie{Name: "token", Value: token})
 		w.Header().Add("Location", "/")
 		w.WriteHeader(http.StatusFound)

@@ -13,6 +13,7 @@ import (
 func main() {
 	// 初始化
 	confs.InitLogger()
+	confs.InitRedisPool()
 	confs.InitDB()
 	orm.RegisterModel(&models.User{}, &models.File{})
 	err := orm.RunSyncdb("default", false, true)

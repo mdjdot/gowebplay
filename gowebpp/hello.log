@@ -58,3 +58,11 @@
 2020/05/07 13:18:59 请求没有cookie，转到登录页，错误：<nil>
 2020/05/07 13:19:16 请求信息不正确，请求：map[name:[王二] pwd:[z]]
 2020/05/07 13:20:19 请求没有cookie，转到登录页，错误：<nil>
+2020/05/07 15:20:42 请求没有cookie，转到登录页，错误：redigo: unexpected type for String, got type []interface {}
+2020/05/07 15:22:06 请求没有cookie，转到登录页，错误：redigo: unexpected type for String, got type []interface {}
+2020/05/07 15:26:46 请求没有cookie，转到登录页，错误：<nil>
+2020/05/07 15:27:01 请求没有cookie，转到登录页，错误：<nil>
+2020/05/07 15:28:09 请求没有cookie，转到登录页，错误：redigo: nil returned
+2020/05/07 15:29:08 请求没有cookie，转到登录页，错误：redigo: nil returned
+2020/05/07 15:29:29 请求没有cookie，转到登录页，错误：<nil>
+2020/05/07 15:30:39 请求没有cookie，转到登录页，错误：redigo: nil returned
