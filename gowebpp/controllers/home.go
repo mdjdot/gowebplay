@@ -12,10 +12,16 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 // HandleHome 主页控制器
 func HandleHome(w http.ResponseWriter, r *http.Request) {
+	doc := &models.Request{URL: r.URL, Time: time.Now().Unix()}
+	err := doc.Insert()
+	if err != nil {
+		confs.Logger.Println("记录请求到mongodb错误：" + err.Error())
+	}
 	if r.Method == http.MethodGet {
 		ckUser, err := r.Cookie("token")
 		if err != nil {

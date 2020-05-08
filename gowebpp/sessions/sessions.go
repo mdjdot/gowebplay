@@ -31,11 +31,11 @@ import (
 // Add 添加 session
 func Add(token string, ex int) error {
 	conn := confs.RedisPool.Get()
-	_, err := conn.Do("AUTH", "dmtest")
-	if err != nil {
-		return err
-	}
-	_, err = conn.Do("SET", token, "1", "EX", strconv.Itoa(ex))
+	// _, err := conn.Do("AUTH", "dmtest")
+	// if err != nil {
+	// 	return err
+	// }
+	_, err := conn.Do("SET", token, "1", "EX", strconv.Itoa(ex))
 	if err != nil {
 		return err
 	}
@@ -45,10 +45,10 @@ func Add(token string, ex int) error {
 // Get 获取 session
 func Get(token string) (string, error) {
 	conn := confs.RedisPool.Get()
-	_, err := conn.Do("AUTH", "dmtest")
-	if err != nil {
-		return "", err
-	}
+	// _, err := conn.Do("AUTH", "dmtest")
+	// if err != nil {
+	// 	return "", err
+	// }
 
 	value, err := redis.String(conn.Do("GET", token))
 	if err != nil {

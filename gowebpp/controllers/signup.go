@@ -1,15 +1,22 @@
 package controllers
 
 import (
+	"gowebpp/confs"
 	"gowebpp/models"
 	"gowebpp/sessions"
 	"gowebpp/utils"
 	"html/template"
 	"net/http"
+	"time"
 )
 
 // HandleSignup 注册控制器
 func HandleSignup(w http.ResponseWriter, r *http.Request) {
+	doc := &models.Request{URL: r.URL, Time: time.Now().Unix()}
+	err := doc.Insert()
+	if err != nil {
+		confs.Logger.Println("记录请求到mongodb错误：" + err.Error())
+	}
 	if r.Method == http.MethodPost {
 		r.ParseForm()
 		user := &models.User{

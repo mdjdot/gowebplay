@@ -1,15 +1,22 @@
 package controllers
 
 import (
+	"gowebpp/confs"
 	"gowebpp/models"
 	"gowebpp/sessions"
 	"gowebpp/utils"
 	"html/template"
 	"net/http"
+	"time"
 )
 
 // HandleLogin 登录控制器
 func HandleLogin(w http.ResponseWriter, r *http.Request) {
+	doc := &models.Request{URL: r.URL, Time: time.Now().Unix()}
+	err := doc.Insert()
+	if err != nil {
+		confs.Logger.Println("记录请求到mongodb错误：" + err.Error())
+	}
 	if r.Method == http.MethodGet {
 		t, err := template.ParseFiles("./views/login.html")
 		if err != nil {

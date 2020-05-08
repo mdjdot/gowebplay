@@ -66,3 +66,24 @@
 2020/05/07 15:29:08 请求没有cookie，转到登录页，错误：redigo: nil returned
 2020/05/07 15:29:29 请求没有cookie，转到登录页，错误：<nil>
 2020/05/07 15:30:39 请求没有cookie，转到登录页，错误：redigo: nil returned
+2020/05/07 19:32:44 请求没有cookie，转到登录页，错误：redigo: nil returned
+2020/05/07 19:35:54 请求没有cookie，转到登录页，错误：redigo: nil returned
+2020/05/08 12:01:08 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:01:08 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:01:24 请求信息不正确，请求：map[name:[张三] pwd:[kkzz]]
+2020/05/08 12:01:24 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:01:35 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:01:39 请求信息不正确，请求：map[name:[张三] pwd:[kkzz]]
+2020/05/08 12:01:39 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:01:41 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:01:51 请求信息不正确，请求：map[name:[王二] pwd:[kkzz]]
+2020/05/08 12:01:51 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:02:07 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:02:15 请求信息不正确，请求：map[name:[张三] pwd:[kkzz]]
+2020/05/08 12:02:16 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:02:51 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:05:31 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:05:36 请求没有cookie，转到登录页，错误：http: named cookie not present
+2020/05/08 12:06:04 请求没有cookie，转到登录页，错误：redigo: nil returned
+2020/05/08 12:08:54 请求没有cookie，转到登录页，错误：redigo: nil returned
+2020/05/08 12:09:01 请求没有cookie，转到登录页，错误：redigo: nil returned
