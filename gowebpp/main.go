@@ -1,13 +1,16 @@
 package main
 
 import (
-	"net/http"
-
+	"fmt"
 	"gowebpp/confs"
 	"gowebpp/models"
 	"gowebpp/routers"
+	m "gowebpp/tools/models"
+	"net/http"
+	"net/rpc/jsonrpc"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/julienschmidt/httprouter"
 )
 
 func main() {
@@ -20,6 +23,29 @@ func main() {
 	err := orm.RunSyncdb("default", false, true)
 	if err != nil {
 		confs.Logger.Fatalf("同步数据库失败，错误：%v\n", err)
+	}
+
+	go func() {
+		// 使用httprouter
+		router := httprouter.New()
+		routers.InitREST(router)
+		err = http.ListenAndServe(":8081", router)
+		if err != nil {
+			confs.Logger.Fatalf("启动服务失败，错误：%v\n", err)
+		}
+	}()
+
+	{
+		// client, err := rpc.DialHTTP("tcp", "127.0.0.1:8082")
+		// client, err := rpc.Dial("tcp", "127.0.0.1:8082")
+		client, err := jsonrpc.Dial("tcp", "127.0.0.1:8082")
+		if err != nil {
+			confs.Logger.Fatalf("rpc服务调用失败，错误：%v\n", err)
+		}
+		req := &m.Request{A: 10, B: 20}
+		resp := &m.Response{}
+		client.Call("Arith.Sum", req, resp)
+		fmt.Println(resp.C)
 	}
 
 	// 创建多路复用器
